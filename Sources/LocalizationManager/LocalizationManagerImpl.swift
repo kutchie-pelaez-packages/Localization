@@ -43,7 +43,7 @@ final class LocalizationManagerImpl: LocalizationManager {
             )
 
             if language.direction != newValue.direction {
-                logger.log("Language direction did change from \(self.language.direction) to \(newValue.description)")
+                logger.log("Language direction did change from \(self.language.direction) to \(newValue.direction)")
 
                 sendCurrentLanguageDirectionToReceivers()
             }

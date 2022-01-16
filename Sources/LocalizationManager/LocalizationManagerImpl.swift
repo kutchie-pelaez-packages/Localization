@@ -3,6 +3,8 @@ import CoreUtils
 import Language
 import os
 
+private let logger = Logger("localization")
+
 final class LocalizationManagerImpl: LocalizationManager {
     init(supportedLocalizationIdentifiers: [String]) {
         self.supportedLocalizations = supportedLocalizationIdentifiers.map(Localization.init(identifier:))
@@ -17,9 +19,9 @@ final class LocalizationManagerImpl: LocalizationManager {
 
     // MARK: -
 
-    private func sendCurrentLocalizationDirectionToReceivers() {
+    private func sendCurrentLanguageDirectionToReceivers() {
         localizationDirectionReceivers.forEach {
-            $0.receive(language.localization.direction)
+            $0.receive(language.direction)
         }
     }
 
@@ -31,6 +33,8 @@ final class LocalizationManagerImpl: LocalizationManager {
         } set {
             guard language != newValue else { return }
 
+            logger.log("Setting language to \(newValue)")
+
             storedLanguage = newValue
             cachedLanguage = newValue
 
@@ -39,7 +43,9 @@ final class LocalizationManagerImpl: LocalizationManager {
             )
 
             if language.direction != newValue.direction {
-                sendCurrentLocalizationDirectionToReceivers()
+                logger.log("Language direction did change from \(self.language.direction) to \(newValue.description)")
+
+                sendCurrentLanguageDirectionToReceivers()
             }
         }
     }

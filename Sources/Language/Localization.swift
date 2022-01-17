@@ -3,6 +3,7 @@ import Foundation
 
 public struct Localization:
     Equatable,
+    Hashable,
     CustomStringConvertible,
     ExpressibleByStringLiteral
 {

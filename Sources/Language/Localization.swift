@@ -18,6 +18,10 @@ public struct Localization:
         Localization(identifier: Locale.current.identifier)
     }
 
+    public static var en: Localization {
+        "en"
+    }
+
     private static var fallback: Localization {
         "en"
     }
@@ -63,18 +67,22 @@ public struct Localization:
 }
 
 extension Array where Element == Localization {
-    public var englishFirst: Self {
-        guard contains("en") else {
+    public func localizationFirst(_ localization: Localization) -> Self {
+        guard contains(localization) else {
             return safeUndefined(
                 self,
-                "No en localization provided"
+                "No \(localization.identifier) localization provided"
             )
         }
 
         var result = self
-        result.removeAll { $0 == "en" }
-        result.insert("en", at: 0)
+        result.removeAll { $0 == localization }
+        result.insert(localization, at: 0)
 
         return result
+    }
+
+    public var englishFirst: Self {
+        localizationFirst(.en)
     }
 }

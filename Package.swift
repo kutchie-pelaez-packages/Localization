@@ -12,7 +12,7 @@ let package = Package(
         .library(name: "LocalizationManager", targets: ["LocalizationManager"])
     ],
     dependencies: [
-        .package(name: "Core", url: "https://github.com/kutchie-pelaez-packages/Core", .branch("master"))
+        .package(name: "Core", url: "https://github.com/kutchie-pelaez-packages/Core.git", .branch("master"))
     ],
     targets: [
         .target(

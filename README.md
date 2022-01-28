@@ -1,1 +1,1 @@
-# LocalizationManager
+# Localization

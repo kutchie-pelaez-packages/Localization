@@ -2,8 +2,15 @@ import Core
 import Language
 
 public protocol LocalizationManager {
-    var language: Language { get nonmutating set }
+    var languageSubject: MutableValueSubject<Language> { get }
     var supportedLocalizations: [Localization] { get }
-    var eventPublisher: ValuePublisher<LocalizationEvent> { get }
-    func register(localizationDirectionReceiver: LocalizationDirectionReceiver)
+}
+
+extension LocalizationManager {
+    var localizationDirectionPublisher: ValuePublisher<LocalizationDirection> {
+        languageSubject
+            .map(\.direction)
+            .removeDuplicates()
+            .eraseToAnyPublisher()
+    }
 }

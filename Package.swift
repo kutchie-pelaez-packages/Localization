@@ -12,20 +12,20 @@ let package = Package(
         .library(name: "Language", targets: ["Language"])
     ],
     dependencies: [
-        .package(name: "CoreUtils", url: "https://github.com/kutchie-pelaez-packages/CoreUtils", .branch("master"))
+        .package(name: "Core", url: "https://github.com/kutchie-pelaez-packages/Core", .branch("master"))
     ],
     targets: [
         .target(
             name: "LocalizationManager",
             dependencies: [
-                .product(name: "CoreUtils", package: "CoreUtils"),
+                .product(name: "Core", package: "Core"),
                 .target(name: "Language")
             ]
         ),
         .target(
             name: "Language",
             dependencies: [
-                .product(name: "CoreUtils", package: "CoreUtils")
+                .product(name: "Core", package: "Core")
             ]
         )
     ]

@@ -1,4 +1,4 @@
-import CoreUtils
+import Core
 import Foundation
 
 public struct Localization:

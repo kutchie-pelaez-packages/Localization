@@ -1,4 +1,4 @@
-import CoreUtils
+import Core
 import Language
 
 public protocol LocalizationManager {

@@ -13,8 +13,10 @@ final class LocalizationManagerImpl: LocalizationManager {
         subscribeToEvents()
     }
 
-    @LanguageUserDefault("language")
-    private var storedLanguage
+    private lazy var storedLanguage = LanguageUserDefault(
+        "language",
+        supportedLocalizations: supportedLocalizations
+    )
     private var cancellable = [AnyCancellable]()
 
     // MARK: -
@@ -31,14 +33,14 @@ final class LocalizationManagerImpl: LocalizationManager {
 
                 logger.log("Setting language from \(self.languageSubject.value) to \(newLanguage)")
 
-                self.storedLanguage = newLanguage
+                self.storedLanguage.wrappedValue = newLanguage
             }
             .store(in: &cancellable)
     }
 
     // MARK: - LocalizationManager
 
-    lazy var languageSubject: MutableValueSubject<Language> = UniqueMutableValueSubject(storedLanguage)
+    lazy var languageSubject: MutableValueSubject<Language> = UniqueMutableValueSubject(storedLanguage.wrappedValue)
 
     let supportedLocalizations: [Localization]
 }

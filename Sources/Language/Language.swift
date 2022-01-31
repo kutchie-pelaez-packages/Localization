@@ -5,13 +5,13 @@ public enum Language:
     Equatable
 {
 
-    case system
+    case system(Localization)
     case custom(Localization)
 
     public var localization: Localization {
         switch self {
-        case .system:
-            return .system
+        case let .system(localization):
+            return localization
 
         case let .custom(localization):
             return localization

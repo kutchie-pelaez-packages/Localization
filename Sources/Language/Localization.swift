@@ -14,8 +14,14 @@ public struct Localization:
 
     public let identifier: String
 
-    public static var system: Localization {
-        Localization(identifier: Locale.current.identifier)
+    public static func system(for supportedLocalizations: [Localization]) -> Localization {
+        let systemLocalization = Localization(identifier: Locale.current.identifier)
+
+        if supportedLocalizations.contains(systemLocalization) {
+            return systemLocalization
+        } else {
+            return .fallback
+        }
     }
 
     public static var en: Localization {
@@ -35,7 +41,9 @@ public struct Localization:
     }
 
     public var direction: LocalizationDirection {
-        let characterDirection = Locale.characterDirection(forLanguage: identifier)
+        let characterDirection = Locale.characterDirection(
+            forLanguage: identifier
+        )
 
         switch characterDirection {
         case .leftToRight:

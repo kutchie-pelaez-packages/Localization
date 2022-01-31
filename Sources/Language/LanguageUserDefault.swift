@@ -1,14 +1,19 @@
 import Core
 import Foundation
 
-@propertyWrapper
 public struct LanguageUserDefault {
-    public init(_ key: String) {
+    public init(
+        _ key: String,
+        supportedLocalizations: [Localization]
+    ) {
+        self.supportedLocalizations = supportedLocalizations
         self._language = UserDefault(
             key,
             default: nil
         )
     }
+
+    private let supportedLocalizations: [Localization]
 
     @UserDefault
     private var language: String?
@@ -16,11 +21,13 @@ public struct LanguageUserDefault {
     public var wrappedValue: Language {
         get {
             if let userDefaultsLanguageValue = language {
-                return .custom(
-                    Localization(identifier: userDefaultsLanguageValue)
-                )
+                let customLocalization = Localization(identifier: userDefaultsLanguageValue)
+
+                return .custom(customLocalization)
             } else {
-                return .system
+                let systemLocalization = Localization.system(for: supportedLocalizations)
+
+                return .system(systemLocalization)
             }
         } set {
             switch newValue {

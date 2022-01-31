@@ -9,7 +9,7 @@ public struct Localization:
 {
 
     public init(identifier: String) {
-        self.identifier = identifier
+        self.identifier = String(identifier.prefix(2))
     }
 
     public let identifier: String
@@ -62,7 +62,7 @@ public struct Localization:
     // MARK: - ExpressibleByStringLiteral
 
     public init(stringLiteral value: StringLiteralType) {
-        self.identifier = value
+        self.init(identifier: value)
     }
 }
 

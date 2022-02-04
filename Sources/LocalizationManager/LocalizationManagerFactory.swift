@@ -1,7 +1,7 @@
 public struct LocalizationManagerFactory {
     public init() { }
 
-    public func produce(supportedLocalizationIdentifiers: [String]) -> LocalizationManager {
-        LocalizationManagerImpl(supportedLocalizationIdentifiers: supportedLocalizationIdentifiers)
+    public func produce(provider: LocalizationManagerProvider) -> LocalizationManager {
+        LocalizationManagerImpl(provider: provider)
     }
 }

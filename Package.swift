@@ -22,13 +22,15 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(name: "Core", url: "https://github.com/kutchie-pelaez-packages/Core.git", .branch("master"))
+        .package(name: "Core", url: "https://github.com/kutchie-pelaez-packages/Core.git", .branch("master")),
+        .package(name: "Yams", url: "https://github.com/jpsim/Yams.git", from: "4.0.6")
     ],
     targets: [
         .target(
             name: "LocalizationManager",
             dependencies: [
                 .product(name: "Core", package: "Core"),
+                .product(name: "Yams", package: "Yams"),
                 .target(name: "Language")
             ]
         ),

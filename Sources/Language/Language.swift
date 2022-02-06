@@ -1,10 +1,6 @@
 import Foundation
 
-public enum Language:
-    CustomStringConvertible,
-    Equatable
-{
-
+public enum Language: CustomStringConvertible, Equatable {
     case system(Localization)
     case custom(Localization)
 

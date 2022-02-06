@@ -7,7 +7,7 @@ public protocol LocalizationManager {
 }
 
 extension LocalizationManager {
-    var localizationDirectionPublisher: ValuePublisher<LocalizationDirection> {
+    public var localizationDirectionPublisher: ValuePublisher<LocalizationDirection> {
         languageSubject
             .map(\.direction)
             .removeDuplicates()

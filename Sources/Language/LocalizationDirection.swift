@@ -1,8 +1,4 @@
-public enum LocalizationDirection:
-    String,
-    CustomStringConvertible
-{
-
+public enum LocalizationDirection: String, CustomStringConvertible {
     case ltr
     case rtl
 

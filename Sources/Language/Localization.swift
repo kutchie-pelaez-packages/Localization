@@ -7,7 +7,6 @@ public struct Localization:
     CustomStringConvertible,
     ExpressibleByStringLiteral
 {
-
     public init(identifier: String) {
         self.identifier = String(identifier.prefix(2))
     }

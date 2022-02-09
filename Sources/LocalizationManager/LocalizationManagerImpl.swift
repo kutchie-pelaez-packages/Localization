@@ -2,18 +2,21 @@ import Combine
 import Core
 import Foundation
 import Language
+import Logger
 import Yams
-import os
-
-private let logger = Logger("localization")
 
 final class LocalizationManagerImpl: LocalizationManager {
-    init(provider: LocalizationManagerProvider) {
+    init(
+        provider: LocalizationManagerProvider,
+        logger: Logger
+    ) {
         self.provider = provider
+        self.logger = logger
         subscribeToEvents()
     }
 
     private let provider: LocalizationManagerProvider
+    private let logger: Logger
 
     private let configDecoder = YAMLDecoder()
     private var cancellable = [AnyCancellable]()
@@ -30,7 +33,7 @@ final class LocalizationManagerImpl: LocalizationManager {
             let configData = try? Data(contentsOf: provider.configURL),
             let config: LocalizationManagerConfig = try? configDecoder.decode(from: configData)
         else {
-            appFatalError("Failed to access localization manager config")
+            crash("Failed to access localization manager config")
         }
 
         return config
@@ -47,7 +50,7 @@ final class LocalizationManagerImpl: LocalizationManager {
                     return
                 }
 
-                logger.log("Setting language from \(oldLanguage) to \(newLanguage)")
+                self.logger.log("Setting language from \(oldLanguage) to \(newLanguage)", domain: .localization)
 
                 self.storedLanguage.wrappedValue = newLanguage
             }
@@ -59,4 +62,8 @@ final class LocalizationManagerImpl: LocalizationManager {
     private(set) lazy var languageSubject: MutableValueSubject<Language> = UniqueMutableValueSubject(storedLanguage.wrappedValue)
 
     private(set) lazy var supportedLocalizations: [Localization] = config.supportedLocalizations.map(Localization.init(identifier:))
+}
+
+extension LogDomain {
+    fileprivate static let localization: Self = "localization"
 }

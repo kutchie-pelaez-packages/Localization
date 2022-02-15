@@ -1,7 +1,7 @@
 import Tweak
 
-extension Tweak.ID {
+extension TweakID {
     public enum Localization {
-        public static var updateLanguage = Tweak.ID()
+        public static var updateLanguage: TweakID { TweakID() }
     }
 }

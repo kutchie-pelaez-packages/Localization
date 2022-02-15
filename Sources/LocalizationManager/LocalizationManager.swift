@@ -1,7 +1,8 @@
 import Core
 import Language
+import Tweak
 
-public protocol LocalizationManager {
+public protocol LocalizationManager: TweakReceiver {
     var languageSubject: MutableValueSubject<Language> { get }
     var supportedLocalizations: [Localization] { get }
 }

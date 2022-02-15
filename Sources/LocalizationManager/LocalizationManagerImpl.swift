@@ -3,6 +3,7 @@ import Core
 import Foundation
 import Language
 import Logger
+import Tweak
 import Yams
 
 final class LocalizationManagerImpl: LocalizationManager {
@@ -55,6 +56,19 @@ final class LocalizationManagerImpl: LocalizationManager {
                 self.storedLanguage.wrappedValue = newLanguage
             }
             .store(in: &cancellable)
+    }
+
+    // MARK: - TweakReceiver
+
+    func receive(_ tweak: Tweak) {
+        guard
+            tweak.id == .Localization.updateLanguage,
+            let newValue = tweak.args[.Common.newValue] as? Language
+        else {
+            return
+        }
+
+        languageSubject.value = newValue
     }
 
     // MARK: - LocalizationManager

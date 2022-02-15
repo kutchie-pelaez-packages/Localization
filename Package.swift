@@ -24,6 +24,7 @@ let package = Package(
     dependencies: [
         .package(name: "Core", url: "https://github.com/kutchie-pelaez-packages/Core.git", .branch("master")),
         .package(name: "Logging", url: "https://github.com/kutchie-pelaez-packages/Logging.git", .branch("master")),
+        .package(name: "Tweaks", url: "https://github.com/kutchie-pelaez-packages/Tweaks.git", .branch("master")),
         .package(name: "Yams", url: "https://github.com/jpsim/Yams.git", from: "4.0.6")
     ],
     targets: [
@@ -32,6 +33,7 @@ let package = Package(
             dependencies: [
                 .product(name: "Core", package: "Core"),
                 .product(name: "Logger", package: "Logging"),
+                .product(name: "Tweak", package: "Tweaks"),
                 .product(name: "Yams", package: "Yams"),
                 .target(name: "Language")
             ]
@@ -39,7 +41,8 @@ let package = Package(
         .target(
             name: "Language",
             dependencies: [
-                .product(name: "Core", package: "Core")
+                .product(name: "Core", package: "Core"),
+                .product(name: "Tweak", package: "Tweaks")
             ]
         )
     ]

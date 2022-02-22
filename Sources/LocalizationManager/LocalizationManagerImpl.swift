@@ -63,7 +63,7 @@ final class LocalizationManagerImpl: LocalizationManager {
     func receive(_ tweak: Tweak) {
         guard
             tweak.id == .Localization.updateLanguage,
-            let newValue = tweak.args[.Common.newValue] as? Language
+            let newValue = tweak.args[.newValue] as? Language
         else {
             return
         }

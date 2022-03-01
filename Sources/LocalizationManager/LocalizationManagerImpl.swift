@@ -51,7 +51,7 @@ final class LocalizationManagerImpl: LocalizationManager {
                     return
                 }
 
-                self.logger.log("Setting language from \(oldLanguage) to \(newLanguage)", domain: .localization)
+                self.logger.log("Changing language from \(oldLanguage) to \(newLanguage)...", domain: .localization)
 
                 self.storedLanguage.wrappedValue = newLanguage
             }

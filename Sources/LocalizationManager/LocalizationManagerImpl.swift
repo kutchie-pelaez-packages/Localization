@@ -73,7 +73,7 @@ final class LocalizationManagerImpl: LocalizationManager {
 
     // MARK: - LocalizationManager
 
-    private(set) lazy var languageSubject: MutableValueSubject<Language> = UniqueMutableValueSubject(storedLanguage.wrappedValue)
+    private(set) lazy var languageSubject: MutableValueSubject<Language> = MutableValueSubject(storedLanguage.wrappedValue)
 
     private(set) lazy var supportedLocalizations: [Localization] = config.supportedLocalizations.map(Localization.init(identifier:))
 }
